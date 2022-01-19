@@ -3,33 +3,39 @@ using Common;
 using Common.Abstractions;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client
 {
     public class SocketClient : IClient<StringInfo>
     {
-        public Socket Socket;
+        public int ServerPort { get; private set; }
+        public Socket Socket { get; private set; }
         private ILog _logger;
 
-        public SocketClient(Socket socket, ILog logger)
+        public SocketClient(Socket socket, ILog logger, int serverPort)
         {
-            _logger = logger;
+            ServerPort = serverPort;
             Socket = socket;
+            _logger = logger;
         }
 
         public void Start()
         {
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        }
-
-        public void ConnectToServer(ServerInfo serverInfo)
-        {
-            throw new NotImplementedException();
+            while (!Socket.Connected)
+            {
+                try
+                {
+                    Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    Socket.Connect(IPAddress.Loopback, ServerPort);
+                    Console.WriteLine("connected");
+                }
+                catch (SocketException)
+                {
+                    _logger.Warn($"Client failed to connect to server!");
+                }
+            }
         }
 
         public void SendInfo(IInfo<StringInfo> infoToSend)

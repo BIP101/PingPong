@@ -1,15 +1,13 @@
-﻿using Client.Abstractions;
-using Client;
+﻿using Client;
+using Client.Abstractions;
 using Common;
 using log4net;
 using Server.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net;
 
 namespace Server
 {
@@ -20,13 +18,13 @@ namespace Server
         private ILog _logger;
         private Socket _socket;
         private byte[] _buffer;
-        
+
         public SocketServer(string name, int port, int backLog, int bufferSize, ILog logger)
         {
             ServerInfo = new ServerInfo();
             ServerInfo.Name = name;
             ServerInfo.Port = port;
-            ServerInfo.BackLog= backLog;
+            ServerInfo.BackLog = backLog;
             ServerInfo.BufferSize = bufferSize;
 
             _buffer = new byte[ServerInfo.BufferSize];
@@ -49,9 +47,10 @@ namespace Server
             Socket clientSocket = _socket.EndAccept(asyncResult);
 
             _logger.Debug($"Client has connected");
+            Console.WriteLine("Client has connected");
 
-            Clients.Add(new SocketClient(clientSocket, _logger));
-            clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None, 
+            Clients.Add(new SocketClient(clientSocket, _logger, ServerInfo.Port));
+            clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None,
                 new AsyncCallback(ReceiveCallback), clientSocket);
             _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);
         }
@@ -68,7 +67,7 @@ namespace Server
 
             // resend info to client and get ready to receive new data
             _logger.Debug($"resending info to client, info is: {stringInfo}");
-            clientSocket.BeginSend(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, 
+            clientSocket.BeginSend(dataBuffer, 0, dataBuffer.Length, SocketFlags.None,
                 new AsyncCallback(SendCallback), clientSocket);
             clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None,
                new AsyncCallback(ReceiveCallback), clientSocket);
@@ -77,7 +76,7 @@ namespace Server
         public void SendCallback(IAsyncResult asyncResult)
         {
             Socket clientSocket = asyncResult.AsyncState as Socket;
-            clientSocket.EndSend(asyncResult); 
+            clientSocket.EndSend(asyncResult);
         }
 
         public void SendData(StringInfo Data)
