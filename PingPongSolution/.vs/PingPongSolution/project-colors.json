@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "690b6a63-2e85-4a53-8872-1b38284bdfea": {
+      "ProjectGuid": "690b6a63-2e85-4a53-8872-1b38284bdfea",
+      "DisplayName": "PingPongSolution",
+      "ColorIndex": 0
+    },
+    "7c5f1200-030e-457b-8ae2-aa004812231d": {
+      "ProjectGuid": "7c5f1200-030e-457b-8ae2-aa004812231d",
+      "DisplayName": "IO",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
