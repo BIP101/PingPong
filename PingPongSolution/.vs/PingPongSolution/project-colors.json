@@ -20,7 +20,12 @@
       "ProjectGuid": "2cf9eb8c-32de-458c-aa6f-592c8224bfdf",
       "DisplayName": "Common",
       "ColorIndex": 3
+    },
+    "9d2a25b3-b767-48d0-ae67-319d5f12962b": {
+      "ProjectGuid": "9d2a25b3-b767-48d0-ae67-319d5f12962b",
+      "DisplayName": "Server",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }
