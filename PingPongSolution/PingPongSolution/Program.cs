@@ -1,4 +1,6 @@
 ﻿using System;
+using log4net;
+using System.Configuration;
 
 namespace PingPongSolution
 {
@@ -6,7 +8,11 @@ namespace PingPongSolution
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //get logger
+            var loggerName = ConfigurationManager.AppSettings["loggerName"];
+            var logger = LogManager.GetLogger(loggerName);
+
+            logger.Debug($"test");
         }
     }
 }
