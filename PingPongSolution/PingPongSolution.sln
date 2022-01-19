@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingPongSolution", "PingPongSolution\PingPongSolution.csproj", "{690B6A63-2E85-4A53-8872-1B38284BDFEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO", "IO\IO.csproj", "{7C5F1200-030E-457B-8AE2-AA004812231D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{690B6A63-2E85-4A53-8872-1B38284BDFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{690B6A63-2E85-4A53-8872-1B38284BDFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{690B6A63-2E85-4A53-8872-1B38284BDFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C5F1200-030E-457B-8AE2-AA004812231D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C5F1200-030E-457B-8AE2-AA004812231D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C5F1200-030E-457B-8AE2-AA004812231D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C5F1200-030E-457B-8AE2-AA004812231D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
