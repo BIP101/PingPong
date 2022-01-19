@@ -10,7 +10,17 @@
       "ProjectGuid": "7c5f1200-030e-457b-8ae2-aa004812231d",
       "DisplayName": "IO",
       "ColorIndex": 1
+    },
+    "806f618d-b8b5-47fe-9ea3-4ac68c2f3064": {
+      "ProjectGuid": "806f618d-b8b5-47fe-9ea3-4ac68c2f3064",
+      "DisplayName": "Client",
+      "ColorIndex": 2
+    },
+    "2cf9eb8c-32de-458c-aa6f-592c8224bfdf": {
+      "ProjectGuid": "2cf9eb8c-32de-458c-aa6f-592c8224bfdf",
+      "DisplayName": "Common",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

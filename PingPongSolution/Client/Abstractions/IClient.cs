@@ -10,7 +10,8 @@ namespace Client.Abstractions
 {
     public interface IClient<T>
     {
-        string Name { get; }
+        ClientInfo ClientInfo { get; }
+        void Start();
         void ConnectToServer(ServerInfo serverInfo);
         void SendInfo(IInfo<T> infoToSend);
         void ParseInfo(T infoToParse);

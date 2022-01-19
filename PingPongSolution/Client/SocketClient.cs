@@ -1,9 +1,11 @@
 ﻿using Client.Abstractions;
 using Common;
 using Common.Abstractions;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +13,21 @@ namespace Client
 {
     public class SocketClient : IClient<string>
     {
-        public string Name { get; private set; }
+        public ClientInfo ClientInfo { get; private set; }
+        private Socket _socket;
+        private ILog _logger;
 
-        public SocketClient(string name)
+        public SocketClient(string name, string address, int port, ILog logger)
         {
-            Name = name;
+            ClientInfo.Name = name;
+            ClientInfo.Address = address;
+            ClientInfo.Port = port;
+            _logger = logger; 
+        }
+
+        public void Start()
+        {
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         public void ConnectToServer(ServerInfo serverInfo)
