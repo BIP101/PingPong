@@ -1,0 +1,15 @@
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\Client.deps.json
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\Client.dll
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\ref\Client.dll
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\Client.pdb
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\Common.dll
+C:\Code\PingPong\PingPongSolution\Client\bin\Debug\net5.0\Common.pdb
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.csproj.AssemblyReference.cache
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.AssemblyInfoInputs.cache
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.AssemblyInfo.cs
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.csproj.CoreCompileInputs.cache
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.csproj.CopyComplete
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.dll
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\ref\Client.dll
+C:\Code\PingPong\PingPongSolution\Client\obj\Debug\net5.0\Client.pdb

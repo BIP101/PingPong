@@ -8,7 +8,7 @@ namespace Client.Abstractions
         int ServerPort { get; }
         Socket Socket { get; }
         void Start();
-        void SendInfo(IInfo<T> infoToSend);
+        void SendInfo(T infoToSend);
         void ParseInfo(T infoToParse);
         T GetInfo();
     }

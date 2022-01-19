@@ -1,10 +1,10 @@
 ﻿using Client.Abstractions;
 using Common;
-using Common.Abstractions;
 using log4net;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Client
 {
@@ -38,9 +38,16 @@ namespace Client
             }
         }
 
-        public void SendInfo(IInfo<StringInfo> infoToSend)
+        public void SendInfo(StringInfo infoToSend)
         {
-            throw new NotImplementedException();
+            byte[] dataBuffer = Encoding.ASCII.GetBytes(infoToSend.Information);
+            Socket.Send(dataBuffer);
+
+            // since client received info the same length it sends
+            byte[] receivedData = new byte[dataBuffer.Length];
+            Socket.Receive(receivedData);
+            Array.Copy(receivedData, receivedData, receivedData.Length);
+            Console.WriteLine($"received: {Encoding.ASCII.GetString(receivedData)}"); 
         }
 
         public void ParseInfo(StringInfo infoToParse)

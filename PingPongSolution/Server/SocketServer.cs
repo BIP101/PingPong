@@ -66,7 +66,9 @@ namespace Server
             StringInfo stringInfo = new StringInfo(Encoding.ASCII.GetString(dataBuffer));
 
             // resend info to client and get ready to receive new data
-            _logger.Debug($"resending info to client, info is: {stringInfo}");
+            _logger.Debug($"resending info to client, info is: {stringInfo.Information}");
+            Console.WriteLine($"resending info to client, info is: {stringInfo.Information}");
+
             clientSocket.BeginSend(dataBuffer, 0, dataBuffer.Length, SocketFlags.None,
                 new AsyncCallback(SendCallback), clientSocket);
             clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None,
