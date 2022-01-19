@@ -1,30 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
-      "Common/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "compile": {
-          "bin/placeholder/Common.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Common.dll": {}
-        }
-      }
-    }
+    "net5.0": {}
   },
-  "libraries": {
-    "Common/1.0.0": {
-      "type": "project",
-      "path": "../Common/Common.csproj",
-      "msbuildProject": "../Common/Common.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    "net5.0": [
-      "Common >= 1.0.0"
-    ]
+    "net5.0": []
   },
   "packageFolders": {
     "C:\\Users\\yoni2\\.nuget\\packages\\": {},
@@ -33,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Code\\PingPong\\PingPongSolution\\Client\\Client.csproj",
-      "projectName": "Client",
-      "projectPath": "C:\\Code\\PingPong\\PingPongSolution\\Client\\Client.csproj",
+      "projectUniqueName": "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj",
+      "projectName": "Common",
+      "projectPath": "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj",
       "packagesPath": "C:\\Users\\yoni2\\.nuget\\packages\\",
-      "outputPath": "C:\\Code\\PingPong\\PingPongSolution\\Client\\obj\\",
+      "outputPath": "C:\\Code\\PingPong\\PingPongSolution\\Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -57,11 +38,7 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {
-            "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj": {
-              "projectPath": "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
