@@ -11,23 +11,20 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    public class SocketClient : IClient<string>
+    public class SocketClient : IClient<StringInfo>
     {
-        public ClientInfo ClientInfo { get; private set; }
-        private Socket _socket;
+        public Socket Socket;
         private ILog _logger;
 
-        public SocketClient(string name, string address, int port, ILog logger)
+        public SocketClient(Socket socket, ILog logger)
         {
-            ClientInfo.Name = name;
-            ClientInfo.Address = address;
-            ClientInfo.Port = port;
-            _logger = logger; 
+            _logger = logger;
+            Socket = socket;
         }
 
         public void Start()
         {
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         public void ConnectToServer(ServerInfo serverInfo)
@@ -35,17 +32,17 @@ namespace Client
             throw new NotImplementedException();
         }
 
-        public string GetInfo()
+        public void SendInfo(IInfo<StringInfo> infoToSend)
         {
             throw new NotImplementedException();
         }
 
-        public void ParseInfo(string infoToParse)
+        public void ParseInfo(StringInfo infoToParse)
         {
             throw new NotImplementedException();
         }
 
-        public void SendInfo(IInfo<string> infoToSend)
+        public StringInfo GetInfo()
         {
             throw new NotImplementedException();
         }

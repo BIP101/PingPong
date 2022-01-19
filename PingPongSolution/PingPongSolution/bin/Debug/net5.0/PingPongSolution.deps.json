@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "PingPongSolution/1.0.0": {
         "dependencies": {
+          "Server": "1.0.0",
           "System.Configuration.ConfigurationManager": "6.0.0",
           "log4net": "2.0.14"
         },
@@ -149,6 +150,30 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "Client/1.0.0": {
+        "dependencies": {
+          "Common": "1.0.0",
+          "log4net": "2.0.14"
+        },
+        "runtime": {
+          "Client.dll": {}
+        }
+      },
+      "Common/1.0.0": {
+        "runtime": {
+          "Common.dll": {}
+        }
+      },
+      "Server/1.0.0": {
+        "dependencies": {
+          "Client": "1.0.0",
+          "Common": "1.0.0",
+          "log4net": "2.0.14"
+        },
+        "runtime": {
+          "Server.dll": {}
+        }
       }
     }
   },
@@ -227,6 +252,21 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Client/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Server/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
