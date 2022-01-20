@@ -70,7 +70,22 @@ namespace Server.Implementations
             _logger.Debug($"resending info to client, info is: {info.Information}");
 
             _stream.Write(dataBuffer, 0, dataBuffer.Length);
-            await ReceiveCallback();
+            Task asyncCallBack = new Task(() =>
+            {
+                var endWrite = new AsyncCallback(SendCallback);
+            });
+
+            await asyncCallBack;
+        }
+
+        public async void SendCallback(IAsyncResult asyncResult)
+        {
+            Task endWrite = new Task(() =>
+            {
+                _stream.EndWrite(asyncResult);
+            });
+
+            await endWrite;
         }
     }
 }

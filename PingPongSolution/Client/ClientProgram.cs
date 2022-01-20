@@ -10,9 +10,13 @@ namespace Client
         public static void Main(string[] args)
         {
             var logger = LogManager.GetLogger("logger");
-
             UpgradedClient<string> client = new UpgradedClient<string>(logger);
-            ClientOrchestrator<UpgradedClient<string>> socketClientOrchestrator = new ClientOrchestrator<UpgradedClient<string>>(client, logger);
+            SocketClient<string> socketClient = new SocketClient<string>(logger);
+
+            ClientOrchestrator<UpgradedClient<string>> clientOrchestrator = new ClientOrchestrator<UpgradedClient<string>>(client, logger);
+            //clientOrchestrator.Start();
+
+            ClientOrchestrator<SocketClient<string>> socketClientOrchestrator = new ClientOrchestrator<SocketClient<string>>(socketClient, logger);
             socketClientOrchestrator.Start();
 
             Console.ReadLine();

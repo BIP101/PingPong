@@ -46,7 +46,6 @@ namespace Server.Orchestrators
                     , int.Parse(parsedInput[2]), int.Parse(parsedInput[3]));
 
                 _server.ServerInfo = serverInfo;
-                //_server.Start();
                 _output.DisplayOutput($"Server is up and listening on: {_server.ServerInfo.IP}:{_server.ServerInfo.Port}");
             }
             catch (Exception e)

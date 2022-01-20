@@ -12,9 +12,13 @@ namespace Server
         {
             var logger = LogManager.GetLogger("logger");
             UpgradedServer<string> server = new UpgradedServer<string>(logger);
+            SocketServer<string> socketServer = new SocketServer<string>(logger);
 
-            ServerOrchestrator<UpgradedServer<string>, TcpClient> socketServerOrchestrator = new ServerOrchestrator<UpgradedServer<string>, TcpClient>(server, logger);
-            socketServerOrchestrator.Start();
+            ServerOrchestrator<UpgradedServer<string>, TcpClient> serverOrchestrator = new ServerOrchestrator<UpgradedServer<string>, TcpClient>(server, logger);
+            //serverOrchestrator.Start();
+
+            ServerOrchestrator<SocketServer<string>, Socket> SocketServerOrchestrator = new ServerOrchestrator<SocketServer<string>, Socket>(socketServer, logger);
+            SocketServerOrchestrator.Start();
 
             Console.ReadLine();
         }

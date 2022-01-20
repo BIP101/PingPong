@@ -25,6 +25,11 @@
       "ProjectGuid": "9d2a25b3-b767-48d0-ae67-319d5f12962b",
       "DisplayName": "Server",
       "ColorIndex": 4
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 5
