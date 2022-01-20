@@ -113,6 +113,19 @@
         "runtime": {
           "bin/placeholder/Common.dll": {}
         }
+      },
+      "IO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "log4net": "2.0.14"
+        },
+        "compile": {
+          "bin/placeholder/IO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IO.dll": {}
+        }
       }
     }
   },
@@ -334,11 +347,17 @@
       "type": "project",
       "path": "../Common/Common.csproj",
       "msbuildProject": "../Common/Common.csproj"
+    },
+    "IO/1.0.0": {
+      "type": "project",
+      "path": "../IO/IO.csproj",
+      "msbuildProject": "../IO/IO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "Common >= 1.0.0",
+      "IO >= 1.0.0",
       "log4net >= 2.0.14"
     ]
   },
@@ -376,6 +395,9 @@
           "projectReferences": {
             "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj": {
               "projectPath": "C:\\Code\\PingPong\\PingPongSolution\\Common\\Common.csproj"
+            },
+            "C:\\Code\\PingPong\\PingPongSolution\\IO\\IO.csproj": {
+              "projectPath": "C:\\Code\\PingPong\\PingPongSolution\\IO\\IO.csproj"
             }
           }
         }

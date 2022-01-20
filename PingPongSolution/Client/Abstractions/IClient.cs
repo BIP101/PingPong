@@ -1,4 +1,4 @@
-﻿using Common.Abstractions;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace Client.Abstractions
@@ -6,11 +6,12 @@ namespace Client.Abstractions
     public interface IClient<T>
     {
         int ServerPort { get; }
-        public string ServerIP { get; }
+        string ServerIP { get; }
         Socket Socket { get; }
-        void Start(string serverIP, int serverPort);
+        Stack<T> ReceivedInfo { get; }
+        bool Start(string serverIP, int serverPort);
         void SendInfo(T infoToSend);
         void ReceiveInfo(int dataLength);
-        T ParseInfo(byte[] infoToParse);
+        void ParseInfo(byte[] infoToParse);
     }
 }

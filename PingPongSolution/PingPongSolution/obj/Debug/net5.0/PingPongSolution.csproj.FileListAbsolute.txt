@@ -40,3 +40,5 @@ C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.deps.
 C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.runtimeconfig.json
 C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.runtimeconfig.dev.json
 C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.exe
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\IO.dll
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\IO.pdb

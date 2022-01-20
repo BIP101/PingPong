@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PingPongSolution", "PingPongSolution\PingPongSolution.csproj", "{690B6A63-2E85-4A53-8872-1B38284BDFEA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2CF9EB8C-32DE-458C-AA6F-592C8224BFDF} = {2CF9EB8C-32DE-458C-AA6F-592C8224BFDF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IO", "IO\IO.csproj", "{7C5F1200-030E-457B-8AE2-AA004812231D}"
 EndProject
@@ -11,7 +14,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{2CF9EB8C-32DE-458C-AA6F-592C8224BFDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{9D2A25B3-B767-48D0-AE67-319D5F12962B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{9D2A25B3-B767-48D0-AE67-319D5F12962B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7C5F1200-030E-457B-8AE2-AA004812231D} = {7C5F1200-030E-457B-8AE2-AA004812231D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

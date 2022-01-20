@@ -1,0 +1,12 @@
+C:\Code\PingPong\PingPongSolution\IO\bin\Debug\net5.0\IO.deps.json
+C:\Code\PingPong\PingPongSolution\IO\bin\Debug\net5.0\IO.dll
+C:\Code\PingPong\PingPongSolution\IO\bin\Debug\net5.0\ref\IO.dll
+C:\Code\PingPong\PingPongSolution\IO\bin\Debug\net5.0\IO.pdb
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.csproj.AssemblyReference.cache
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.AssemblyInfoInputs.cache
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.AssemblyInfo.cs
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.csproj.CoreCompileInputs.cache
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.dll
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\ref\IO.dll
+C:\Code\PingPong\PingPongSolution\IO\obj\Debug\net5.0\IO.pdb

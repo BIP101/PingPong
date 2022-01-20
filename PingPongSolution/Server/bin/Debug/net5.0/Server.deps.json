@@ -10,6 +10,7 @@
         "dependencies": {
           "Client": "1.0.0",
           "Common": "1.0.0",
+          "IO": "1.0.0",
           "log4net": "2.0.14"
         },
         "runtime": {
@@ -81,6 +82,7 @@
       "Client/1.0.0": {
         "dependencies": {
           "Common": "1.0.0",
+          "IO": "1.0.0",
           "log4net": "2.0.14"
         },
         "runtime": {
@@ -90,6 +92,14 @@
       "Common/1.0.0": {
         "runtime": {
           "Common.dll": {}
+        }
+      },
+      "IO/1.0.0": {
+        "dependencies": {
+          "log4net": "2.0.14"
+        },
+        "runtime": {
+          "IO.dll": {}
         }
       }
     }
@@ -155,6 +165,11 @@
       "sha512": ""
     },
     "Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IO/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

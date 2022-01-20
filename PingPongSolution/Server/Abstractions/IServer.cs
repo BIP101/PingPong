@@ -12,6 +12,5 @@ namespace Server.Abstractions
         void AcceptCallback(IAsyncResult asyncResult);
         void ReceiveCallback(IAsyncResult asyncResult);
         void SendCallback(IAsyncResult asyncResult);
-        void SendData(T Data);
     }
 }

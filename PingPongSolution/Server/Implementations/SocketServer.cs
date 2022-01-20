@@ -1,6 +1,4 @@
-﻿using Client;
-using Client.Abstractions;
-using Common;
+﻿using Common;
 using log4net;
 using Server.Abstractions;
 using System;
@@ -9,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Server
+namespace Server.Implementations
 {
     public class SocketServer : IServer<StringInfo, Socket>
     {
@@ -19,9 +17,9 @@ namespace Server
         private Socket _socket;
         private byte[] _buffer;
 
-        public SocketServer(string name, string ip, int port, int backLog, int bufferSize, ILog logger)
+        public SocketServer(string ip, int port, int backLog, int bufferSize, ILog logger)
         {
-            ServerInfo = new ServerInfo(name, ip, port, backLog, bufferSize);
+            ServerInfo = new ServerInfo(ip, port, backLog, bufferSize);
             _buffer = new byte[ServerInfo.BufferSize];
             Clients = new List<ClientInfo<Socket>>();
             _logger = logger;
@@ -52,7 +50,6 @@ namespace Server
             Socket clientSocket = _socket.EndAccept(asyncResult);
 
             _logger.Debug($"Client has connected");
-            Console.WriteLine("Client has connected");
 
             Clients.Add(new ClientInfo<Socket>(clientSocket));
             clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None,
@@ -72,7 +69,6 @@ namespace Server
 
             // resend info to client and get ready to receive new data
             _logger.Debug($"resending info to client, info is: {stringInfo.Information}");
-            Console.WriteLine($"resending info to client, info is: {stringInfo.Information}");
 
             clientSocket.BeginSend(dataBuffer, 0, dataBuffer.Length, SocketFlags.None,
                 new AsyncCallback(SendCallback), clientSocket);
@@ -84,11 +80,6 @@ namespace Server
         {
             Socket clientSocket = asyncResult.AsyncState as Socket;
             clientSocket.EndSend(asyncResult);
-        }
-
-        public void SendData(StringInfo Data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using Client;
+﻿using Client.Implementations;
 using Common;
 using log4net;
-using Server;
 using System;
 using System.Configuration;
-using System.Net.Sockets;
 
 namespace PingPongSolution
 {
