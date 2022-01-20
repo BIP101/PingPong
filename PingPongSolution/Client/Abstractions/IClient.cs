@@ -6,10 +6,11 @@ namespace Client.Abstractions
     public interface IClient<T>
     {
         int ServerPort { get; }
+        public string ServerIP { get; }
         Socket Socket { get; }
-        void Start();
+        void Start(string serverIP, int serverPort);
         void SendInfo(T infoToSend);
-        void ParseInfo(T infoToParse);
-        T GetInfo();
+        void ReceiveInfo(int dataLength);
+        T ParseInfo(byte[] infoToParse);
     }
 }

@@ -36,3 +36,7 @@ C:\Code\PingPong\PingPongSolution\PingPongSolution\obj\Debug\net5.0\PingPongSolu
 C:\Code\PingPong\PingPongSolution\PingPongSolution\obj\Debug\net5.0\ref\PingPongSolution.dll
 C:\Code\PingPong\PingPongSolution\PingPongSolution\obj\Debug\net5.0\PingPongSolution.pdb
 C:\Code\PingPong\PingPongSolution\PingPongSolution\obj\Debug\net5.0\PingPongSolution.genruntimeconfig.cache
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.deps.json
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.runtimeconfig.json
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.runtimeconfig.dev.json
+C:\Code\PingPong\PingPongSolution\PingPongSolution\bin\Debug\net5.0\Server.exe

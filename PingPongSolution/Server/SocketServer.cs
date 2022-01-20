@@ -11,24 +11,19 @@ using System.Text;
 
 namespace Server
 {
-    public class SocketServer : IServer<StringInfo>
+    public class SocketServer : IServer<StringInfo, Socket>
     {
-        public IList<IClient<StringInfo>> Clients { get; private set; }
+        public IList<ClientInfo<Socket>> Clients { get; private set; }
         public ServerInfo ServerInfo { get; private set; }
         private ILog _logger;
         private Socket _socket;
         private byte[] _buffer;
 
-        public SocketServer(string name, int port, int backLog, int bufferSize, ILog logger)
+        public SocketServer(string name, string ip, int port, int backLog, int bufferSize, ILog logger)
         {
-            ServerInfo = new ServerInfo();
-            ServerInfo.Name = name;
-            ServerInfo.Port = port;
-            ServerInfo.BackLog = backLog;
-            ServerInfo.BufferSize = bufferSize;
-
+            ServerInfo = new ServerInfo(name, ip, port, backLog, bufferSize);
             _buffer = new byte[ServerInfo.BufferSize];
-            Clients = new List<IClient<StringInfo>>();
+            Clients = new List<ClientInfo<Socket>>();
             _logger = logger;
         }
 
@@ -36,9 +31,19 @@ namespace Server
         {
             // initalize server
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _socket.Bind(new IPEndPoint(IPAddress.Any, ServerInfo.Port));
-            _socket.Listen(ServerInfo.BackLog);
-            _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            if (IPAddress.TryParse(ServerInfo.IP, out var address))
+            {
+                _socket.Bind(new IPEndPoint(address, ServerInfo.Port));
+                _socket.Listen(ServerInfo.BackLog);
+                _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            }
+            else
+            {
+                _logger.Error($"Received inccorrect ip, ip received: {ServerInfo.IP}");
+                throw new InvalidCastException($"Received inccorrect ip, ip received: {ServerInfo.IP}");
+            }
+
+
         }
 
         public void AcceptCallback(IAsyncResult asyncResult)
@@ -49,7 +54,7 @@ namespace Server
             _logger.Debug($"Client has connected");
             Console.WriteLine("Client has connected");
 
-            Clients.Add(new SocketClient(clientSocket, _logger, ServerInfo.Port));
+            Clients.Add(new ClientInfo<Socket>(clientSocket));
             clientSocket.BeginReceive(_buffer, 0, ServerInfo.BufferSize, SocketFlags.None,
                 new AsyncCallback(ReceiveCallback), clientSocket);
             _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);

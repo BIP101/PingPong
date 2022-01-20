@@ -11,24 +11,28 @@ namespace Client
     public class SocketClient : IClient<StringInfo>
     {
         public int ServerPort { get; private set; }
+        public string ServerIP { get; private set; }
         public Socket Socket { get; private set; }
         private ILog _logger;
 
-        public SocketClient(Socket socket, ILog logger, int serverPort)
+        public SocketClient(ILog logger)
         {
-            ServerPort = serverPort;
-            Socket = socket;
             _logger = logger;
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        public void Start()
+        public void Start(string serverIP, int serverPort)
         {
             while (!Socket.Connected)
             {
                 try
                 {
-                    Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    Socket.Connect(IPAddress.Loopback, ServerPort);
+                    IPAddress.TryParse(serverIP, out var address);
+                    Socket.Connect(address, serverPort);
+
+                    //if succesful, save parameters
+                    ServerPort = serverPort;
+                    ServerIP = serverIP;
                     Console.WriteLine("connected");
                 }
                 catch (SocketException)
@@ -44,20 +48,25 @@ namespace Client
             Socket.Send(dataBuffer);
 
             // since client received info the same length it sends
-            byte[] receivedData = new byte[dataBuffer.Length];
+            ReceiveInfo(dataBuffer.Length);
+        }
+
+        public void ReceiveInfo(int dataLength)
+        {
+            byte[] receivedData = new byte[dataLength];
             Socket.Receive(receivedData);
             Array.Copy(receivedData, receivedData, receivedData.Length);
-            Console.WriteLine($"received: {Encoding.ASCII.GetString(receivedData)}"); 
+            ParseInfo(receivedData);
         }
 
-        public void ParseInfo(StringInfo infoToParse)
+        public StringInfo ParseInfo(byte[] infoToParse)
         {
-            throw new NotImplementedException();
-        }
+            var parsedInfo = Encoding.ASCII.GetString(infoToParse);
+            var stringInfo = new StringInfo(parsedInfo);
 
-        public StringInfo GetInfo()
-        {
-            throw new NotImplementedException();
+            _logger.Debug($"Client received info, info is: {parsedInfo}");
+            Console.WriteLine($"received: {parsedInfo}");
+            return stringInfo;
         }
     }
 }

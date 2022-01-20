@@ -10,25 +10,22 @@ namespace PingPongSolution
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //get logger
             var loggerName = ConfigurationManager.AppSettings["loggerName"];
             var logger = LogManager.GetLogger(loggerName);
 
-            SocketServer server = new SocketServer("server", 8200, 5, 1024, logger);
-            server.Start();
-
-            SocketClient client = new SocketClient(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), logger, server.ServerInfo.Port);
-            client.Start();
+            SocketClient client = new SocketClient(logger);
+            client.Start("127.0.0.1", 8200);
             client.SendInfo(new StringInfo("hello"));
 
-            SocketClient client2 = new SocketClient(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), logger, server.ServerInfo.Port);
-            client2.Start();
+            SocketClient client2 = new SocketClient(logger);
+            client2.Start("127.0.0.1", 8200);
             client2.SendInfo(new StringInfo("hello2"));
 
-            SocketClient client3 = new SocketClient(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), logger, server.ServerInfo.Port);
-            client3.Start();
+            SocketClient client3 = new SocketClient(logger);
+            client3.Start("127.0.0.1", 8200);
             client3.SendInfo(new StringInfo("hello3"));
 
             Console.ReadLine();
