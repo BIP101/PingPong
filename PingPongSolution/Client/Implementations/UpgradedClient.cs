@@ -62,7 +62,6 @@ namespace Client.Implementations
 
         public async void ReceiveInfo()
         {
-            await Task.Delay(100);
             var reader = new StreamReader(_stream);
             var response = await reader.ReadLineAsync();
             ParseInfo(response);

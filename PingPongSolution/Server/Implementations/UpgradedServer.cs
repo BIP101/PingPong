@@ -58,16 +58,22 @@ namespace Server.Implementations
         public async Task ReceiveCallback()
         {
             var reader = new StreamReader(_stream);
-            var writer = new StreamWriter(_stream);
-            writer.AutoFlush = true;
 
             string received = await reader.ReadLineAsync();
+            await SendCallBack(received);
+        }
+
+        public async Task SendCallBack(string received)
+        {
+            var writer = new StreamWriter(_stream);
+            writer.AutoFlush = true;
             Info<string> info = new Info<string>(received);
 
             // resend info to client and get ready to receive new data
             _logger.Debug($"resending info to client, info is: {info.Information}");
             Console.WriteLine($"resending info to client, info is: {info.Information}");
 
+            await writer.FlushAsync();
             await writer.WriteLineAsync(received);
             await ReceiveCallback();
         }
