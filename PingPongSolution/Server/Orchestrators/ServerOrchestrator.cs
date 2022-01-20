@@ -1,25 +1,28 @@
-﻿using IO.Input;
+﻿using Common;
+using IO.Input;
 using IO.Input.Abstractions;
 using IO.Output;
 using IO.Output.Abstractions;
 using log4net;
+using Server.Abstractions;
 using Server.Implementations;
 using System;
 using System.Configuration;
 
 namespace Server.Orchestrators
 {
-    public class SocketServerOrchestrator
+    public class ServerOrchestrator<T, J>
+        where T : IServer<Info<string>, J>
     {
-        private SocketServer _socketServer;
+        private T _server;
         private ILog _logger;
         private IInput<string> _input;
         private IOutput<string> _output;
 
-        public SocketServerOrchestrator()
+        public ServerOrchestrator(T server, ILog logger)
         {
-            var loggerName = ConfigurationManager.AppSettings["loggerName"]; // fix this
-            _logger = LogManager.GetLogger("loggerName");
+            _logger = logger;
+            _server = server; 
             _input = new ConsoleInput(_logger);
             _output = new ConsoleOutput<string>(_logger);
         }
@@ -27,7 +30,7 @@ namespace Server.Orchestrators
         public void Start()
         {
             InitializeServerProperties();
-            _socketServer.Start();
+            _server.Start();
         }
 
         public void InitializeServerProperties()
@@ -39,9 +42,12 @@ namespace Server.Orchestrators
             var parsedInput = input.Split(':');
             try
             {
-                _socketServer = new SocketServer(parsedInput[0], int.Parse(parsedInput[1])
-                    , int.Parse(parsedInput[2]), int.Parse(parsedInput[3]), _logger);
-                _output.DisplayOutput($"Server is up and listening on: {_socketServer.ServerInfo.IP}:{_socketServer.ServerInfo.Port}");
+                var serverInfo = new ServerInfo(parsedInput[0], int.Parse(parsedInput[1])
+                    , int.Parse(parsedInput[2]), int.Parse(parsedInput[3]));
+
+                _server.ServerInfo = serverInfo;
+                //_server.Start();
+                _output.DisplayOutput($"Server is up and listening on: {_server.ServerInfo.IP}:{_server.ServerInfo.Port}");
             }
             catch (Exception e)
             {

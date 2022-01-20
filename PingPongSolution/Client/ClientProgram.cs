@@ -1,4 +1,6 @@
-﻿using Client.Orchestrators;
+﻿using Client.Implementations;
+using Client.Orchestrators;
+using log4net;
 using System;
 
 namespace Client
@@ -7,7 +9,10 @@ namespace Client
     {
         public static void Main(string[] args)
         {
-            SocketClientOrchestrator socketClientOrchestrator = new SocketClientOrchestrator();
+            var logger = LogManager.GetLogger("logger");
+
+            UpgradedClient<string> client = new UpgradedClient<string>(logger);
+            ClientOrchestrator<UpgradedClient<string>> socketClientOrchestrator = new ClientOrchestrator<UpgradedClient<string>>(client, logger);
             socketClientOrchestrator.Start();
 
             Console.ReadLine();

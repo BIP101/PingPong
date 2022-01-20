@@ -9,18 +9,16 @@ using System.Text;
 
 namespace Server.Implementations
 {
-    public class SocketServer : IServer<StringInfo, Socket>
+    public class SocketServer<T> : IServer<Info<T>, Socket>
     {
         public IList<ClientInfo<Socket>> Clients { get; private set; }
-        public ServerInfo ServerInfo { get; private set; }
+        public ServerInfo ServerInfo { get; set; }
         private ILog _logger;
         private Socket _socket;
         private byte[] _buffer;
 
-        public SocketServer(string ip, int port, int backLog, int bufferSize, ILog logger)
+        public SocketServer(ILog logger)
         {
-            ServerInfo = new ServerInfo(ip, port, backLog, bufferSize);
-            _buffer = new byte[ServerInfo.BufferSize];
             Clients = new List<ClientInfo<Socket>>();
             _logger = logger;
         }
@@ -34,6 +32,7 @@ namespace Server.Implementations
                 _socket.Bind(new IPEndPoint(address, ServerInfo.Port));
                 _socket.Listen(ServerInfo.BackLog);
                 _socket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+                _buffer = new byte[ServerInfo.BufferSize];
             }
             else
             {
@@ -65,10 +64,10 @@ namespace Server.Implementations
             byte[] dataBuffer = new byte[received];
             Array.Copy(_buffer, dataBuffer, received);
 
-            StringInfo stringInfo = new StringInfo(Encoding.ASCII.GetString(dataBuffer));
+            Info<string> info = new Info<string>(Encoding.ASCII.GetString(dataBuffer));
 
             // resend info to client and get ready to receive new data
-            _logger.Debug($"resending info to client, info is: {stringInfo.Information}");
+            _logger.Debug($"resending info to client, info is: {info.Information}");
 
             clientSocket.BeginSend(dataBuffer, 0, dataBuffer.Length, SocketFlags.None,
                 new AsyncCallback(SendCallback), clientSocket);

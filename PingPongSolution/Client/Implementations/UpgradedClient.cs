@@ -9,39 +9,41 @@ using System.Text;
 
 namespace Client.Implementations
 {
-    public class SocketClient<T> : IClient<Info<T>>
+    public class UpgradedClient<T> : IClient<Info<T>>
     {
         public int ServerPort { get; private set; }
         public string ServerIP { get; private set; }
-        public Socket Socket { get; private set; }
+        public TcpClient TCPClient { get; private set; }
         public Stack<string> ReceivedInfo { get; }
 
         private ILog _logger;
+        private NetworkStream _stream;
 
-        public SocketClient(ILog logger)
+        public UpgradedClient(ILog logger)
         {
             _logger = logger;
             ReceivedInfo = new Stack<string>();
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            TCPClient = new TcpClient();
         }
 
         public bool Start(string serverIP, int serverPort)
         {
-            while (!Socket.Connected)
+            while (!TCPClient.Connected)
             {
                 try
                 {
                     IPAddress.TryParse(serverIP, out var address);
-                    Socket.Connect(address, serverPort);
+                    TCPClient.Connect(address, serverPort);
 
-                    //if succesful, save parameters
+                    //if succesful, save parameters, initalize stream
                     ServerPort = serverPort;
                     ServerIP = serverIP;
+                    _stream = TCPClient.GetStream();
                     return true;
                 }
-                catch (SocketException)
+                catch (SocketException e)
                 {
-                    _logger.Warn($"Client failed to connect to server!");
+                    _logger.Warn($"Client failed to connect to server! Exception: {e}");
                 }
             }
 
@@ -51,7 +53,7 @@ namespace Client.Implementations
         public void SendInfo(Info<T> infoToSend)
         {
             byte[] dataBuffer = Encoding.ASCII.GetBytes(infoToSend.Information.ToString());
-            Socket.Send(dataBuffer);
+            _stream.Write(dataBuffer, 0, dataBuffer.Length);
 
             // since client received info the same length it sends
             ReceiveInfo(dataBuffer.Length);
@@ -60,7 +62,7 @@ namespace Client.Implementations
         public void ReceiveInfo(int dataLength)
         {
             byte[] receivedData = new byte[dataLength];
-            Socket.Receive(receivedData);
+            _stream.Read(receivedData, 0, receivedData.Length);
             Array.Copy(receivedData, receivedData, receivedData.Length);
             ParseInfo(receivedData);
         }
@@ -75,7 +77,7 @@ namespace Client.Implementations
 
         public bool IsConnected()
         {
-            return Socket.Connected;
+            return TCPClient.Connected;
         }
     }
 }
