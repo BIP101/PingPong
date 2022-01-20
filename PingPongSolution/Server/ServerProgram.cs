@@ -15,10 +15,10 @@ namespace Server
             SocketServer<string> socketServer = new SocketServer<string>(logger);
 
             ServerOrchestrator<UpgradedServer<string>, TcpClient> serverOrchestrator = new ServerOrchestrator<UpgradedServer<string>, TcpClient>(server, logger);
-            //serverOrchestrator.Start();
+            serverOrchestrator.Start();
 
             ServerOrchestrator<SocketServer<string>, Socket> SocketServerOrchestrator = new ServerOrchestrator<SocketServer<string>, Socket>(socketServer, logger);
-            SocketServerOrchestrator.Start();
+            //SocketServerOrchestrator.Start();
 
             Console.ReadLine();
         }

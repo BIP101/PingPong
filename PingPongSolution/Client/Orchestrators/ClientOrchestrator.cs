@@ -47,7 +47,10 @@ namespace Client.Orchestrators
             try
             {
                 _client.Start(parsedInput[0], int.Parse(parsedInput[1]));
-                _output.DisplayOutput($"Client is up and connect to server: {_client.ServerIP}:{_client.ServerPort}");
+                if (_client.IsConnected())
+                {
+                    _output.DisplayOutput($"Client is up and connect to server: {_client.ServerIP}:{_client.ServerPort}");
+                }
             }
             catch (Exception e)
             {

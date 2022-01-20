@@ -25,7 +25,7 @@ namespace Client.Implementations
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        public bool Start(string serverIP, int serverPort)
+        public void Start(string serverIP, int serverPort)
         {
             while (!Socket.Connected)
             {
@@ -37,15 +37,12 @@ namespace Client.Implementations
                     //if succesful, save parameters
                     ServerPort = serverPort;
                     ServerIP = serverIP;
-                    return true;
                 }
                 catch (SocketException)
                 {
                     _logger.Warn($"Client failed to connect to server!");
                 }
             }
-
-            return false;
         }
 
         public void SendInfo(Info<T> infoToSend)

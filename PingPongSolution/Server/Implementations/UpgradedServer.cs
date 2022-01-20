@@ -3,6 +3,7 @@ using log4net;
 using Server.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -18,7 +19,6 @@ namespace Server.Implementations
         private ILog _logger;
         private TcpListener _listener;
         private NetworkStream _stream;
-        private byte[] _buffer;
 
         public UpgradedServer(ILog logger)
         {
@@ -33,7 +33,6 @@ namespace Server.Implementations
             {
                 _listener = new TcpListener(address, ServerInfo.Port);
                 _listener.Start();
-                _buffer = new byte[ServerInfo.BufferSize];
                 await AcceptCallback();
             }
             else
@@ -46,9 +45,7 @@ namespace Server.Implementations
         public async Task AcceptCallback()
         {
             // add client to client list and accept new clients
-            Task<TcpClient> clientTask = _listener.AcceptTcpClientAsync();
-            await clientTask;
-            TcpClient client = clientTask.Result;
+            TcpClient client = await _listener.AcceptTcpClientAsync();
             _stream = client.GetStream();
 
             _logger.Debug($"Client has connected");
@@ -60,32 +57,19 @@ namespace Server.Implementations
 
         public async Task ReceiveCallback()
         {
-            int received = _stream.Read(_buffer, 0, _buffer.Length);
-            byte[] dataBuffer = new byte[received];
-            Array.Copy(_buffer, dataBuffer, received);
+            var reader = new StreamReader(_stream);
+            var writer = new StreamWriter(_stream);
+            writer.AutoFlush = true;
 
-            Info<string> info = new Info<string>(Encoding.ASCII.GetString(dataBuffer));
+            string received = await reader.ReadLineAsync();
+            Info<string> info = new Info<string>(received);
 
             // resend info to client and get ready to receive new data
             _logger.Debug($"resending info to client, info is: {info.Information}");
+            Console.WriteLine($"resending info to client, info is: {info.Information}");
 
-            _stream.Write(dataBuffer, 0, dataBuffer.Length);
-            Task asyncCallBack = new Task(() =>
-            {
-                var endWrite = new AsyncCallback(SendCallback);
-            });
-
-            await asyncCallBack;
-        }
-
-        public async void SendCallback(IAsyncResult asyncResult)
-        {
-            Task endWrite = new Task(() =>
-            {
-                _stream.EndWrite(asyncResult);
-            });
-
-            await endWrite;
+            await writer.WriteLineAsync(received);
+            await ReceiveCallback();
         }
     }
 }

@@ -3,9 +3,11 @@ using Common;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Client.Implementations
 {
@@ -26,53 +28,51 @@ namespace Client.Implementations
             TCPClient = new TcpClient();
         }
 
-        public bool Start(string serverIP, int serverPort)
+        public async void Start(string serverIP, int serverPort)
         {
             while (!TCPClient.Connected)
             {
                 try
                 {
                     IPAddress.TryParse(serverIP, out var address);
-                    TCPClient.Connect(address, serverPort);
-
-                    //if succesful, save parameters, initalize stream
                     ServerPort = serverPort;
                     ServerIP = serverIP;
+
+                    await TCPClient.ConnectAsync(address, serverPort);
                     _stream = TCPClient.GetStream();
-                    return true;
                 }
                 catch (SocketException e)
                 {
                     _logger.Warn($"Client failed to connect to server! Exception: {e}");
                 }
             }
-
-            return false;
         }
 
         public void SendInfo(Info<T> infoToSend)
         {
+            var writer = new StreamWriter(_stream);
+            writer.AutoFlush = true;
+
             byte[] dataBuffer = Encoding.ASCII.GetBytes(infoToSend.Information.ToString());
-            _stream.Write(dataBuffer, 0, dataBuffer.Length);
+            writer.WriteLineAsync(infoToSend.Information.ToString());
 
             // since client received info the same length it sends
-            ReceiveInfo(dataBuffer.Length);
+            ReceiveInfo();
         }
 
-        public void ReceiveInfo(int dataLength)
+        public async void ReceiveInfo()
         {
-            byte[] receivedData = new byte[dataLength];
-            _stream.Read(receivedData, 0, receivedData.Length);
-            Array.Copy(receivedData, receivedData, receivedData.Length);
-            ParseInfo(receivedData);
+            await Task.Delay(100);
+            var reader = new StreamReader(_stream);
+            var response = await reader.ReadLineAsync();
+            ParseInfo(response);
         }
 
-        public void ParseInfo(byte[] infoToParse)
+        public void ParseInfo(string infoToParse)
         {
-            var parsedInfo = Encoding.ASCII.GetString(infoToParse);
-            ReceivedInfo.Push(parsedInfo);
+            ReceivedInfo.Push(infoToParse);
 
-            _logger.Debug($"Client received info, info is: {parsedInfo}");
+            _logger.Debug($"Client received info, info is: {infoToParse}");
         }
 
         public bool IsConnected()

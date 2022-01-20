@@ -14,10 +14,10 @@ namespace Client
             SocketClient<string> socketClient = new SocketClient<string>(logger);
 
             ClientOrchestrator<UpgradedClient<string>> clientOrchestrator = new ClientOrchestrator<UpgradedClient<string>>(client, logger);
-            //clientOrchestrator.Start();
+            clientOrchestrator.Start();
 
             ClientOrchestrator<SocketClient<string>> socketClientOrchestrator = new ClientOrchestrator<SocketClient<string>>(socketClient, logger);
-            socketClientOrchestrator.Start();
+            //socketClientOrchestrator.Start();
 
             Console.ReadLine();
         }
